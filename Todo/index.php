@@ -1,5 +1,5 @@
 <?php 
-	$connection = mysqli_connect('localhost','root','','simple_todo');
+	$connection = mysqli_connect('10.100.225.156','root','rootpassword','sqldb');
 	 
 	 $id = '';
 

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: phpmyadmin
+  name: phpmyadmin
+  namespace: php
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phpmyadmin
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: phpmyadmin
+    spec:
+      containers:
+      - image: phpmyadmin
+        name: phpmyadmin
+        env:
+        - name: PMA_HOST
+          valueFrom:
+            configMapKeyRef: 
+              name: phpadmin-config
+              key: PMA_HOST
+        - name: PMA_PORT
+          valueFrom: 
+            configMapKeyRef:
+              name: phpadmin-config
+              key: PMA_PORT
+        - name: PMA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: phpamin-secret
+              key: PMA_PASSWORD
+        - name: PMA_USER
+          valueFrom:
+            secretKeyRef:
+              name: phpamin-secret
+              key: PMA_USER

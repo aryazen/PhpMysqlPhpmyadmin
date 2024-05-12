@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: php-application
+  name: php-application
+  namespace: php
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: php-application
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: php-application
+    spec:
+      containers:
+      - image: 8484810020/php:latest
+        imagePullPolicy: Always
+        name: php
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        
